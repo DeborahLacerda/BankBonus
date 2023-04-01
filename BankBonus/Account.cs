@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static BankBonus.TransactionType;
 
 namespace BankBonus
 {
@@ -12,14 +13,23 @@ namespace BankBonus
         public decimal Balance { get; protected set; }
         protected decimal MinBalance;
 
+        
+        protected List<Transaction> transactions;
+
         public Account(string owner, decimal balance, decimal minBalance = 0)
         {
             Owner = owner;
             Balance = balance;
             MinBalance = minBalance;
+            transactions = new List<Transaction>(); 
+                
         }
 
         public virtual void Deposit(decimal amount)
+        {
+            Deposit(amount, TransactionType.Deposit);
+        }
+        public virtual void Deposit(decimal amount, TransactionType type)
         {
             if (amount <= 0.0m)
             {
@@ -27,37 +37,46 @@ namespace BankBonus
                 return;
             }
             Balance += amount;
+            transactions.Add(new Transaction(amount, DateTime.Now, type));
+
         }
 
+        public abstract bool CanWithdraw(decimal amount);
         public virtual void Withdraw(decimal amount)
         {
-            if (amount <= 0.0m)
+            Withdraw(amount, TransactionType.Withdraw);
+        }
+        public virtual void Withdraw(decimal amount, TransactionType type)
+        {
+            if (!CanWithdraw(amount))
             {
-                Console.WriteLine("Withdrawal amount must be greater than zero.");
                 return;
             }
-            if (Balance - amount < MinBalance)
-            {
-                Console.WriteLine($"Insufficient funds. Current balance: ${Balance}");
-                return;
-            }
+
             Balance -= amount;
+            transactions.Add(new Transaction(amount, DateTime.Now, type));
+            Console.WriteLine($"Withdraw complete.");
         }
 
-        public virtual void Transfer(Account toAccount, decimal amount)
+        public void Transfer(Account toAccount, decimal amount)
         {
-            if (amount <= 0.0m)
+            if (!CanWithdraw(amount))
             {
-                Console.WriteLine("Transfer amount must be greater than zero.");
                 return;
             }
-            if (Balance - amount < MinBalance)
-            {
-                Console.WriteLine($"Insufficient funds. Current balance: ${Balance}");
-                return;
-            }
-            Balance -= amount;
-            toAccount.Deposit(amount);
+
+            Withdraw(amount, TransactionType.TransferOut);
+            toAccount.Deposit(amount, TransactionType.TransferIn);
         }
+
+        public void PrintActivity()
+        {
+            Console.WriteLine("Transaction history for Checking Account:");
+            foreach (var transaction in transactions)
+            {
+                Console.WriteLine(transaction);
+            }
+        }
+
     }
 }

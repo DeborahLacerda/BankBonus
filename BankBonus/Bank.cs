@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace BankBonus
 {
@@ -89,30 +84,39 @@ namespace BankBonus
                             Console.WriteLine("\nInvalid choice. Please try again.");
                         }
                         break;
-
                     case 3:
-                       
-                    case 4:
-                  
-
-                    case 5:
-                        Console.WriteLine("\nSelect the account to view balance:");
+                        Console.WriteLine("\nSelect the account to transfer from:");
                         Console.WriteLine("1. Checking");
                         Console.WriteLine("2. Saving");
                         Console.Write("\nEnter your Selection (1 or 2): ");
-                        int accountChoiceForBalance = int.Parse(Console.ReadLine());
-                        if (accountChoiceForBalance == 1)
+                        int accountChoiceForTransferFrom = int.Parse(Console.ReadLine());
+                        Console.Write("\nEnter the transfer amount: ");
+                        decimal transferAmount = decimal.Parse(Console.ReadLine());
+                        if (accountChoiceForTransferFrom == 1)
                         {
-                            Console.WriteLine($"\nChecking Account Balance: ${checking.Balance}");
+                            checking.Transfer(saving, transferAmount);
                         }
-                        else if (accountChoiceForBalance == 2)
+                        else if (accountChoiceForTransferFrom == 2)
                         {
-                            Console.WriteLine($"\nSaving Account Balance: ${saving.Balance}");
+                            saving.Transfer(checking, transferAmount);
                         }
                         else
                         {
                             Console.WriteLine("\nInvalid choice. Please try again.");
                         }
+                        break;
+
+                    case 4:
+                        Console.WriteLine("\nChecking Account Activity:");
+                        checking.PrintActivity();
+                        Console.WriteLine("\nSaving Account Activity:");
+                        saving.PrintActivity();
+                        break;
+
+                    case 5:
+                        Console.WriteLine($"\n{name}'s Account Balances:");
+                        Console.WriteLine($"Checking Account: ${checking.Balance}");
+                        Console.WriteLine($"Saving Account: ${saving.Balance}");
                         break;
 
                     case 6:
