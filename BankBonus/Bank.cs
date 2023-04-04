@@ -20,10 +20,8 @@ namespace BankBonus
             // Loop until the user chooses to exit
             while (true)
             {
-                // Display the account balances
-                Console.WriteLine($"\n{name}'s Account Balances:");
-                Console.WriteLine($"Checking Account: ${checking.Balance}");
-                Console.WriteLine($"Saving Account: ${saving.Balance}");
+
+
 
                 // Display the menu
                 Console.WriteLine("\nSelect one of the following activities:");
@@ -52,14 +50,23 @@ namespace BankBonus
                         if (accountChoiceForDeposit == 1)
                         {
                             checking.Deposit(depositAmount);
+                            // Display the account balances
+                            Console.WriteLine($"\n{name}'s Account Balances:");
+                            Console.WriteLine($"Checking Account: ${checking.Balance}");
+                            Console.WriteLine($"Saving Account: ${saving.Balance}");
                         }
                         else if (accountChoiceForDeposit == 2)
                         {
                             saving.Deposit(depositAmount);
+                            // Display the account balances
+                            Console.WriteLine($"\n{name}'s Account Balances:");
+                            Console.WriteLine($"Checking Account: ${checking.Balance}");
+                            Console.WriteLine($"Saving Account: ${saving.Balance}");
                         }
                         else
                         {
                             Console.WriteLine("\nInvalid choice. Please try again.");
+
                         }
                         break;
 
@@ -74,14 +81,25 @@ namespace BankBonus
                         if (accountChoiceForWithdraw == 1)
                         {
                             checking.Withdraw(withdrawalAmount);
+                            // Display the account balances
+                            Console.WriteLine($"\n{name}'s Account Balances:");
+                            Console.WriteLine($"Checking Account: ${checking.Balance}");
+                            Console.WriteLine($"Saving Account: ${saving.Balance}");
                         }
                         else if (accountChoiceForWithdraw == 2)
                         {
                             saving.Withdraw(withdrawalAmount);
+                            // Display the account balances
+                            Console.WriteLine($"\n{name}'s Account Balances:");
+                            Console.WriteLine($"Checking Account: ${checking.Balance}");
+                            Console.WriteLine($"Saving Account: ${saving.Balance}");
                         }
                         else
                         {
                             Console.WriteLine("\nInvalid choice. Please try again.");
+                            Console.WriteLine("\n--Look your Balance!--");
+                            Console.WriteLine($"Checking Account: ${checking.Balance}");
+                            Console.WriteLine($"Saving Account: ${saving.Balance}");
                         }
                         break;
                     case 3:
@@ -95,26 +113,40 @@ namespace BankBonus
                         if (accountChoiceForTransferFrom == 1)
                         {
                             checking.Transfer(saving, transferAmount);
+                            // Display the account balances
+                            Console.WriteLine($"\n{name}'s Account Balances:");
+                            Console.WriteLine($"Checking Account: ${checking.Balance}");
+                            Console.WriteLine($"Saving Account: ${saving.Balance}");
                         }
                         else if (accountChoiceForTransferFrom == 2)
                         {
                             saving.Transfer(checking, transferAmount);
+                            // Display the account balances
+                            Console.WriteLine($"\n{name}'s Account Balances:");
+                            Console.WriteLine($"Checking Account: ${checking.Balance}");
+                            Console.WriteLine($"Saving Account: ${saving.Balance}");
                         }
                         else
                         {
                             Console.WriteLine("\nInvalid choice. Please try again.");
+                            // Display the account balances
+                            Console.WriteLine($"\n{name}'s Account Balances:");
+                            Console.WriteLine($"Checking Account: ${checking.Balance}");
+                            Console.WriteLine($"Saving Account: ${saving.Balance}");
                         }
                         break;
 
                     case 4:
-                        Console.WriteLine("\nChecking Account Activity:");
+                        Console.WriteLine($"\n{name}'s Account Activities:\n");
                         checking.PrintActivity();
-                        Console.WriteLine("\nSaving Account Activity:");
+                        Console.WriteLine($"\nChecking Account Balance: ${checking.Balance}\n");
                         saving.PrintActivity();
+                        Console.WriteLine($"\nSaving Account Balance: ${saving.Balance}");
+
                         break;
 
                     case 5:
-                        Console.WriteLine($"\n{name}'s Account Balances:");
+                        Console.WriteLine($"\n{name}'s Account Balances:\n");
                         Console.WriteLine($"Checking Account: ${checking.Balance}");
                         Console.WriteLine($"Saving Account: ${saving.Balance}");
                         break;
